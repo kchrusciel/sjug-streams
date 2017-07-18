@@ -30,15 +30,197 @@
 				<p>Krzysztof Chruściel</p>
 				<p class="fragment fade-in">Diebold-Nixdorf</p>
 				</section>
-				<section><h2>Functional Paradigm</h2></section>
-				<section><h2>Need for Speed</h2></section>
+				<section>"A <span class="fragment highlight-green">sequence</span> of <span class="fragment highlight-green">elements</span> supporting <span class="fragment highlight-green">sequential</span> and <span class="fragment highlight-green">parallel</span> <span class="fragment highlight-green">aggregate operations</span>"</section>
+				<section>
+					<img style="border:none; witdh:150px; height:150px;" src="images/cookie.png">
+					<img style="border:none; witdh:150px; height:150px;" src="images/cookie.png">
+					<img style="border:none; witdh:150px; height:150px;" src="images/cookie.png">
+					<img style="border:none; witdh:150px; height:150px;" src="images/cookie.png">
+					<p style="font-size:20%; color: #7c7c7c;">http://downloadclipart.org/do-upload/clipart/2016-08/Cookie_funny_clipart.png</p>
+					<p>Decorator <span class="fragment" data-fragment-index="1">--------------></span></p>
+					<p>Packing <span class="fragment" data-fragment-index="2">--------------></span></p>
+					<p>Quality <span class="fragment" data-fragment-index="3">--------------></span></p>
+				</section>
+				<section>
+				<p>Decorator --------------><img style="float:rigth; border:none; witdh:100px; height:100px;" src="images/cookie.png"></p>
+					<p>Packing --------------><img style="float:rigth; border:none; witdh:100px; height:100px;" src="images/cookie.png"></p>
+					<p>Quality --------------><img style="float:rigth; border:none; witdh:100px; height:100px;" src="images/cookie.png"></p>
+				</section>
+				<section>
+					<h2>GOF</h2>
+					<p>internal iterator pattern</p>
+				</section>
+				<section>
+					<h2>Stream structure</h2>
+					<p>Source</p>
+					<p>Intermediate operations - pipeline</p>
+					<p>Terminal operation</p>
+				</section>
+				<section>
+				<section>
+					<pre><code data-trim data-noescape>
+				Stream.of(cookies)
+					.filter(Decorator::isDecorated)
+					.filter(Packer::isPacked)
+					.filter(QualityAssurance::isQualityFulfilled)
+					.collect(toList())
+					</code></pre>
+				</section>
+				</section>
+				<section>
+					<h2>Source</h2>
+					<p class="fragment" data-fragment-index="1">Factories: Stream.of(), IntStream.range()</p>
+					<p class="fragment" data-fragment-index="2">Collections: Collection.stream(), Collection.parallelStream()</p>
+					<p class="fragment" data-fragment-index="3">Arrays: Arrays.stream()</p>
+					<p class="fragment" data-fragment-index="4">Random: Random.ints()</p>
+					<p class="fragment" data-fragment-index="5">Files: Files.walk()</p>
+					<p class="fragment" data-fragment-index="6">more...</p>
+				</section>
+				<section>
+					<h2>Intermediate operations</h2>
+					<p class="fragment" data-fragment-index="1">stateful vs stateless</p>
+					<p class="fragment" data-fragment-index="2">filter-map-reduce</p>
+					<p class="fragment" data-fragment-index="3">filter(Predicate&lt;? super T> predicate)</p>
+					<p class="fragment" data-fragment-index="4">map(Function&lt;? super T,? extends R> mapper)</p>
+					<p class="fragment" data-fragment-index="5">reduce(T identity, BinaryOperator&lt;T> accumulator)</p>
+					<p class="fragment" data-fragment-index="6">more...</p>
+				</section>
+				<section>
+					<h2>Terminal operations</h2>
+					<p class="fragment" data-fragment-index="1">Performance</p>
+					<p class="fragment" data-fragment-index="2">Collectors.toList()</p>
+					<p class="fragment" data-fragment-index="3">Collectors.toMap(key, value)</p>
+					<p class="fragment" data-fragment-index="4">Stream.findFirst()</p>
+					<p class="fragment" data-fragment-index="5">more...</p>
+				</section>
+				<section>
+					<h2>Stream lifecycle</h2>
+					<p>Creation - source</p>
+					<p>Configuration - pipeline</p>
+					<p>Execution - terminal</p>
+					<p>Cleanup - used once</p>
+				</section>
+				<section>
+					<h2>Migration?</h2>
+					<img data-src="images/migration.jpg">
+				</section>
+				<section>
+					<h2>The Silence of the Lambdas</h2>
+					<p>1930s</p>
+					<p>1960s</p>
+					<p>In most programming languages</p>
+					<p>Finally in Java</p>
+				</section>
+				<section>
+					<h2>Lazy Evaluation</h2>
+				</section>
+				<section>
+					<h2>Side effect</h2>
+					<pre><code data-trim data-noescape>
+					List&lt;String> cookieNames = new ArrayList<>(); 
+					Stream.of(cookies)
+						.filter(Cookie::getName)
+						.collect(toList())
+					</code></pre>
+				</section>
+				<section><h2>Side effect</h2>
+					<img data-src="images/andrzej.jpg">
+				</section>
+				<section>
+					<h2>Side effect</h2>
+				</section>
+				<section>
+					<h2>Type inference</h2>
+					<pre><code data-trim data-noescape>
+					List&lt;Cookie> cookies = ...
+					</code></pre>
+					<pre><code data-trim data-noescape>
+					.filter((Cookie cookie) -> cookie.getSize() > 5)
+					</code></pre>
+					<pre><code data-trim data-noescape>
+					.filter(cookie -> cookie.getSize() > 5)
+					</code></pre>
+					<p>Fully statically typed</p>
+				</section>
+				<section>
+					<h2>Capture variable</h2>
+					<p>Effectively Final</p>
+					<pre><code data-trim data-noescape>
+					int factory = 10;
+					IntStream.range(0, 5)
+						.forEach(number -> this.log(number * factory));
+					</code></pre>
+					<pre><code class="fragment" data-fragment-index="1" data-trim data-noescape>
+					int factory = 10;
+					IntStream.range(0, 5)
+						.forEach(number -> this.log(number * factory++));
+					</code></pre>
+					<p style="color:red;" class="fragment" data-fragment-index="2">variable should be final or effectively final</p>
+				</section>
+				<section><p>@FunctionInterface</p>
+				<p class="fragment" data-fragment-index="1">Is an Interface</p>
+				<p class="fragment" data-fragment-index="2">Must have only one abstract method</p>
+				<p class="fragment" data-fragment-index="3">Compiler check for @</p>
+				<p class="fragment" data-fragment-index="4">Static methods</p>
+				<p class="fragment" data-fragment-index="5">Default methods</p>
+				</section>
+				<section>
+					<h2>Need for Speed</h2>
+					<p>As always, it depends...</p>
+				</section>
 				<section><h2>Java 9 and streams</h2></section>
 				<section>
-	<p class="fragment" data-fragment-index="3">Appears last</p>
-	<p class="fragment" data-fragment-index="1">Appears first</p>
-	<p class="fragment" data-fragment-index="2">Appears second</p>
-</section>
-				
+					<h2>takeWhile/dropWhile</h2>
+					<p>Java 8</p>
+					<pre><code data-trim data-noescape>
+					Stream.iterate("", s -> s + "s")
+							.filter(s->s.length() &lt; 10)
+							.forEach(this::log);
+					</code></pre>
+					<p>Java 9</p>
+					<pre><code data-trim data-noescape>
+					Stream.iterate("", s -> s + "s")
+							.takeWhile(s->s.length() &lt; 10)
+							.forEach(this::log);
+					</code></pre>
+				</section>
+				<section>
+					<h2>Stream iterate</h2>
+					<p>Java 8</p>
+					<pre><code data-trim data-noescape>
+					Stream.iterate(0, i -> i + 1)
+					  .limit(10);
+					  .forEach(this::log);
+					</code></pre>
+					<p>Java 9</p>
+					<pre><code data-trim data-noescape>
+					Stream.iterate(0, i -> i &lt; 10, i -> i + 1)
+					  .forEach(this::log);
+					</code></pre>
+				</section>
+				<section>
+					<h2>Stream of Nullable</h2>
+					<p>Java 8</p>
+					<pre><code data-trim data-noescape>
+					collection.stream()
+					  .flatMap(element -> {
+						  Integer temp = map.get(element);
+						  return temp != null ? Stream.of(temp) : Stream.empty();
+					  })
+					  .collect(toList());
+					</code></pre>
+					<p>Java 9</p>
+					<pre><code data-trim data-noescape>
+					collection.stream()
+					  .flatMap(elements -> Stream.ofNullable(map.get(element)))
+					  .collect(toList());
+					</code></pre>
+				</section>
+				<section>
+					<h2>More</h2>
+					<img data-src="images/venkat.jpeg">
+					<p>Venkat Subramaniam</p>
+				</section>
 				<section>
 					<h2>Thanks</h2>
 					<p>Krzysztof Chruściel</p>
