@@ -1,9 +1,9 @@
 // Return all upper cased cookie name from frosted cookie
-// Return all cookies with size is grater than 20
+// Count cookies with size is grater than 20
 // Return all sweets which size is equal to 3
 
 // Return sum of all sweets size
-// Return sum of all sweets size - ok
 // Return cookies group by name
-// Return cookies map by name
-// Return map where key is cookie name and value is sum of sweets
+// Return map where key is cookie name with size ("karyna20") and value is sum of sweets size
+
+// Debugger

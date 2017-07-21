@@ -117,19 +117,12 @@
 				<section>
 					<h2>Side effect</h2>
 					<pre><code data-trim data-noescape>
-					list.stream()
-						.parallel()
-						.peek(list::remove)
-						.forEach(System.out::println);
-					</code></pre>
-					<pre><code class="fragment" data-fragment-index="1" data-trim data-noescape>
-					6
-					2
-					1
-					0
-					9
-					
-					java.util.ConcurrentModificationException
+					List&lt;Integer> results = new ArrayList<>();
+					IntStream.range(0, 150)
+							 .parallel()
+							 .filter(s -> s % 2 == 0)
+							 .forEach(s -> results.add(s));
+					System.out.println(results);
 					</code></pre>
 				</section>
 				<section><h2>Side effect</h2>
@@ -153,18 +146,18 @@
 					<p>Effectively Final</p>
 					<pre><code data-trim data-noescape>
 					int factory = 10;
-					IntStream.range(0, 5)
+					IntStream.range(1, 5)
 						.forEach(number -> this.log(number * factory));
 					</code></pre>
 					<pre><code class="fragment" data-fragment-index="1" data-trim data-noescape>
 					int factory = 10;
-					IntStream.range(0, 5)
+					IntStream.range(1, 5)
 						.forEach(number -> this.log(number * factory++));
 					</code></pre>
 					<p style="color:red;" class="fragment" data-fragment-index="2">variable should be final or effectively final</p>
 				</section>
 				<section>
-				<h2>@FunctionInterface</h2>
+				<h2>@FunctionlInterface</h2>
 				<p class="fragment" data-fragment-index="1">Is an Interface</p>
 				<p class="fragment" data-fragment-index="2">Must have only one abstract method</p>
 				<p class="fragment" data-fragment-index="3">Compiler check for @</p>
@@ -177,6 +170,7 @@
 				<section>
 					<h2>Need for Speed</h2>
 					<p>As always, it depends...</p>
+					<p class="fragment" data-fragment-index="1">Not a magic bullet</p>
 				</section>
 				<section><h2>Java 9 and streams</h2></section>
 				<section>
